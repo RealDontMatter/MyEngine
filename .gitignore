@@ -1,0 +1,14 @@
+# IDE
+.idea/
+
+# Generated files
+cmake-build-*/
+
+### General OS and other files ###
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+*.stackdump
