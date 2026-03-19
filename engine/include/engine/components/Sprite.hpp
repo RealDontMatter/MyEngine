@@ -12,11 +12,11 @@ namespace engine {
 
 namespace engine::components {
     class Sprite : public Component {
-        sf::Texture* texture_ = nullptr;
+        std::shared_ptr<sf::Texture> texture_ = nullptr;
         float _density = 100.f;
     public:
         void set_texture(const std::string& filename);
-        [[nodiscard]] const sf::Texture& get_texture() const;
+        [[nodiscard]] const sf::Texture* get_texture() const;
         void set_density(float density);
         [[nodiscard]] float get_density() const;
 

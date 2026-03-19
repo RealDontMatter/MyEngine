@@ -39,8 +39,8 @@ void engine::RenderPipeline::draw(const Scene* scene, sf::RenderWindow* wnd) {
         auto* transform_component = object->GetComponent<components::Transform>();
         if (!sprite_component || !transform_component) return;
 
-        const sf::Texture& sf_texture =  sprite_component->get_texture();
-        sf::Vector2u tex_size = sf_texture.getSize();
+        const sf::Texture* sf_texture =  sprite_component->get_texture();
+        sf::Vector2u tex_size = sf_texture->getSize();
 
         float obj_dens = sprite_component->get_density();
         const Vector3& obj_pos = transform_component->getPosition();
@@ -56,7 +56,8 @@ void engine::RenderPipeline::draw(const Scene* scene, sf::RenderWindow* wnd) {
 
         sf::Vector2f cam_tex_size = {obj_size.x * cam_mod_width, obj_size.y * cam_mod_height};
 
-        sf::Sprite sf_sprite(sf_texture);
+        const sf::Texture& tex = *sf_texture;
+        sf::Sprite sf_sprite(tex);
         sf_sprite.setScale({cam_tex_size.x / tex_size.x, cam_tex_size.y / tex_size.y});
         sf_sprite.setRotation(sf::radians(obj_rot.z));
         sf_sprite.setPosition({cps.x * cam_mod_width, cps.y * cam_mod_height});

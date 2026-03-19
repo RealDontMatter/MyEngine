@@ -6,13 +6,12 @@ void engine::components::Sprite::set_texture(const std::string &filename) {
     texture_ = TextureManager::get_texture(filename);
 }
 
-void engine::components::Sprite::set_texture(sf::Texture &texture) {
-    texture_ = &texture;
-}
+// deprecated
+void engine::components::Sprite::set_texture(sf::Texture &texture) { }
 
 
-const sf::Texture & engine::components::Sprite::get_texture() const {
-    return *texture_;
+const sf::Texture* engine::components::Sprite::get_texture() const {
+    return texture_.get();
 }
 
 void engine::components::Sprite::set_density(const float density) {

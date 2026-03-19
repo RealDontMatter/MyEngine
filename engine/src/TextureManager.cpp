@@ -7,13 +7,14 @@
 #include <engine/TextureManager.hpp>
 
 
-engine::TextureManager * engine::TextureManager::get_instance() {
-    return _instance.get();
+engine::TextureManager& engine::TextureManager::get_instance() {
+    static TextureManager instance;
+    return instance;
 }
 
 std::shared_ptr<sf::Texture> engine::TextureManager::get_texture(const std::string& filename) {
     // std::map<std::string, std::weak_ptr<sf::Texture>> texture_map
-    auto& textures = get_instance()->texture_map;
+    auto& textures = get_instance().texture_map;
 
     std::shared_ptr<sf::Texture> shr_ptr;
     if (const auto it = textures.find(filename); it != textures.end()) {
