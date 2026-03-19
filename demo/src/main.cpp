@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <engine/Engine.hpp>
 
-#include "EnemyLogic.hpp"
+#include "../include/EnemyLogic.hpp"
 #include "PlayerMovement.hpp"
 
 using namespace engine;
@@ -62,16 +62,16 @@ vector<unique_ptr<GameObject>> createGameObjects() {
     player->GetComponent<components::Transform>()
     ->set_data({0,0,0}, {0,0,0}, {1,1,1});
 
-    player->add_component<components::Sprite>()->set_data("hero_tiny.png", 16.f);
+    player->add_component<components::Sprite>()->set_data("hero.png", 16.f);
     player->add_component<PlayerMovement>()->set_data(10.f);*/
 
     auto enemy1 = GameObject::Create("enemy1");
-    enemy1->add_component<components::Sprite>()->set_data("enemy.png", 16.f);
+    enemy1->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
     // enemy1->add_component<EnemyLogic>()->set_data(player.get(), 8.f);
     enemy1->GetComponent<components::Transform>()->set_data({0,0,0}, {0,0,0}, {1,1,1});
 
     auto enemy2 = GameObject::Create("enemy2");
-    enemy2->add_component<components::Sprite>()->set_data("enemy.png", 16.f);
+    enemy2->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
     // enemy2->add_component<EnemyLogic>()->set_data(player.get(), 8.f);
     enemy2->GetComponent<components::Transform>()->set_data({4,0,0}, {0,0,0}, {1,1,1});
 

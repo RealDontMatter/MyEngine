@@ -1,4 +1,4 @@
-#include "EnemyLogic.hpp"
+#include "../include/EnemyLogic.hpp"
 
 #include "engine/Time.hpp"
 #include "engine/Vector3.hpp"
