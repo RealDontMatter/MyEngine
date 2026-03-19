@@ -6,18 +6,20 @@
 
 #include <engine/TextureManager.hpp>
 
+std::unique_ptr<engine::TextureManager> engine::TextureManager::_instance;
 
 engine::TextureManager& engine::TextureManager::get_instance() {
-    static TextureManager instance;
-    return instance;
+    if (_instance == nullptr) {
+        _instance = std::unique_ptr<TextureManager>(new TextureManager());
+    }
+    auto *ptr = _instance.get();
+    auto &ref = *ptr;
+    return ref;
 }
 
 std::shared_ptr<sf::Texture> engine::TextureManager::get_texture(const std::string& filename) {
-    // std::map<std::string, std::weak_ptr<sf::Texture>> texture_map
-    auto& textures = get_instance().texture_map;
-
     std::shared_ptr<sf::Texture> shr_ptr;
-    if (const auto it = textures.find(filename); it != textures.end()) {
+    if (const auto it = _texture_map.find(filename); it != _texture_map.end()) {
         shr_ptr = it->second.lock();
     }
 
@@ -29,6 +31,6 @@ std::shared_ptr<sf::Texture> engine::TextureManager::get_texture(const std::stri
     if (!texture->loadFromFile(filename)) {
         std::cerr << "Failed to load texture: " << filename << std::endl;
     }
-    textures[filename] = texture;
+    _texture_map[filename] = texture;
     return std::move(texture);
 }
