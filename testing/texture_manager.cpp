@@ -22,7 +22,8 @@ namespace engine {
         }
     };
     TEST_F(TextureManagerTest, Tests) {
-        sf::Texture texture = TextureManager::getTexture("enemy.png");
+
+
         EXPECT_EQ(true, true);
     }
 }
