@@ -103,4 +103,16 @@ namespace engine {
         EXPECT_NE(obj->GetComponent<components::Transform>(), nullptr);
         EXPECT_EQ(obj->get_all_components().size(), 1);
     }
+    TEST_F(GameObjectTest, Cloning) {
+        auto obj = GameObject::Create("obj");
+        auto cloned_obj = std::make_unique<GameObject>(*obj);
+
+        EXPECT_NE(cloned_obj.get(), nullptr);
+        EXPECT_NE(obj.get(), nullptr);
+        EXPECT_EQ(obj->get_all_components().size(), cloned_obj->get_all_components().size());
+        EXPECT_EQ(obj->get_all_components().size(), 1);
+        EXPECT_NE(obj->get_all_components()[0], cloned_obj->get_all_components()[0]);
+        EXPECT_NE(dynamic_cast<components::Transform*>(obj->get_all_components()[0]), nullptr);
+        EXPECT_NE(dynamic_cast<components::Transform*>(cloned_obj->get_all_components()[0]), nullptr);
+    }
 }

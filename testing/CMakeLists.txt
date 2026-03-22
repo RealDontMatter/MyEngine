@@ -8,6 +8,7 @@ find_package(GTest REQUIRED)
 add_executable(tests
         game_object.cpp
         texture_manager.cpp
+        instantiate.cpp
 )
 
 target_link_libraries(tests PUBLIC engine)
