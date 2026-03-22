@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <engine/Engine.hpp>
 
+#include "EnemySpawner.hpp"
 #include "../include/EnemyLogic.hpp"
 #include "PlayerMovement.hpp"
 
@@ -11,6 +12,7 @@ using namespace engine;
 using namespace sf;
 using namespace std;
 
+unique_ptr<GameObject> enemy_prefab;
 
 namespace engine {
     class  Application {
@@ -58,31 +60,28 @@ namespace engine {
 vector<unique_ptr<GameObject>> createGameObjects() {
     vector<unique_ptr<GameObject>> objects;
 
-    /*auto player = GameObject::Create("player");
+    auto player = GameObject::Create("player");
     player->GetComponent<components::Transform>()
     ->set_data({0,0,0}, {0,0,0}, {1,1,1});
 
-    player->add_component<components::Sprite>()->set_data("hero.png", 16.f);
-    player->add_component<PlayerMovement>()->set_data(10.f);*/
+    player->add_component<components::Sprite>()->set_data("../assets/hero.png", 16.f);
+    player->add_component<PlayerMovement>()->set_data(2.f);
 
-    auto enemy1 = GameObject::Create("enemy1");
-    enemy1->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
-    // enemy1->add_component<EnemyLogic>()->set_data(player.get(), 8.f);
-    enemy1->GetComponent<components::Transform>()->set_data({0,0,0}, {0,0,0}, {1,1,1});
+    enemy_prefab = GameObject::Create("enemy");
+    enemy_prefab->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
+    enemy_prefab->add_component<EnemyLogic>()->set_data(player.get(), 1.f);
+    enemy_prefab->GetComponent<components::Transform>()->set_data({-5,5,0}, {0,0,0}, {1,1,1});
 
-    auto enemy2 = GameObject::Create("enemy2");
-    enemy2->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
-    // enemy2->add_component<EnemyLogic>()->set_data(player.get(), 8.f);
-    enemy2->GetComponent<components::Transform>()->set_data({4,0,0}, {0,0,0}, {1,1,1});
+    auto spawner = GameObject::Create("spawner");
+    spawner->add_component<EnemySpawner>()->set_data(5.f, enemy_prefab.get());
 
     auto camera = GameObject::Create("camera");
     camera->add_component<components::Camera>()->set_data(25);
     camera->GetComponent<components::Transform>()->set_data({0,0,0}, {0,0,0}, {1,1,1});
 
-    // objects.push_back(std::move(player));
-    objects.push_back(std::move(enemy1));
-    objects.push_back(std::move(enemy2));
+    objects.push_back(std::move(player));
     objects.push_back(std::move(camera));
+    objects.push_back(std::move(spawner));
 
     return objects;
 }

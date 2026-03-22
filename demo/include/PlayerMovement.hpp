@@ -2,7 +2,7 @@
 #include <engine/Engine.hpp>
 
 
-class PlayerMovement : public engine::Component {
+class PlayerMovement : public engine::BaseComponent<PlayerMovement> {
     float movement_speed_ = 1.f;
 
     float clock_ = 0;

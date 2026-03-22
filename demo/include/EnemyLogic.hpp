@@ -1,7 +1,7 @@
 #pragma once
 #include "engine/Component.hpp"
 
-class EnemyLogic : public engine::Component {
+class EnemyLogic : public engine::BaseComponent<EnemyLogic> {
     engine::GameObject* _player = nullptr;
     float _move_speed = 0.f;
     public:

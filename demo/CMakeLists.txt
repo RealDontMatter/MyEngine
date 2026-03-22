@@ -2,7 +2,7 @@ project(demo)
 set(CMAKE_CXX_STANDARD 20)
 
 
-add_executable(${PROJECT_NAME} src/main.cpp src/PlayerMovement.cpp src/EnemyLogic.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/PlayerMovement.cpp src/EnemyLogic.cpp src/EnemySpawner.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE
