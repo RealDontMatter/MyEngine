@@ -20,8 +20,8 @@ namespace engine {
     public:
         static std::unique_ptr<GameObject> Create(std::string name, std::string tag = "");
 
-        GameObject(const GameObject&) = delete;
-        GameObject& operator=(const GameObject&) = delete;
+        GameObject(const GameObject& other);
+        GameObject& operator=(const GameObject& other);
 
         [[nodiscard]] const std::string& getTag() const;
         [[nodiscard]] const std::string& getName() const;

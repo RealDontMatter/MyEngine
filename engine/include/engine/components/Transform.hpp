@@ -6,7 +6,7 @@
 
 namespace engine::components {
 
-    class Transform : public Component {
+    class Transform : public BaseComponent<Transform> {
         Vector3 position_ = {0, 0, 0};
         Vector3 rotation_ = {0, 0, 0};
         Vector3 scale_ = {1, 1, 1};

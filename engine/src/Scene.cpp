@@ -1,3 +1,7 @@
+#include <algorithm>
+#include <vector>
+#include <memory>
+
 #include <engine/Scene.hpp>
 
 #include <engine/Component.hpp>
@@ -10,8 +14,9 @@
     }
     return result;
 }
-void engine::Scene::add_object(std::unique_ptr<GameObject> object) {
-    objects.push_back(std::move(object));
+engine::GameObject* engine::Scene::add_object(std::unique_ptr<GameObject> object) {
+    objectsToAdd.push_back(std::move(object));
+    return objectsToAdd.back().get();
 }
 
 void engine::Scene::init() const {
@@ -21,8 +26,18 @@ void engine::Scene::init() const {
         }
     }
 }
-void engine::Scene::update() const {
-    for (const auto& object : objects) {
+void engine::Scene::update() {
+    for (int i = 0; i < objects.size(); i++) {
+        auto &object = objects[i];
         object->Update();
+    }
+
+    if (!objectsToAdd.empty()) {
+        objects.insert(
+            objects.end(),
+            std::make_move_iterator(objectsToAdd.begin()),
+            std::make_move_iterator(objectsToAdd.end())
+        );
+        objectsToAdd.clear();
     }
 }

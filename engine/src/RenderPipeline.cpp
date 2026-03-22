@@ -37,7 +37,7 @@ void engine::RenderPipeline::draw(const Scene* scene, sf::RenderWindow* wnd) {
     for (const auto object : scene->get_objects()) {
         auto* sprite_component = object->GetComponent<components::Sprite>();
         auto* transform_component = object->GetComponent<components::Transform>();
-        if (!sprite_component || !transform_component) return;
+        if (!sprite_component || !transform_component) continue;
 
         const sf::Texture* sf_texture =  sprite_component->get_texture();
         sf::Vector2u tex_size = sf_texture->getSize();

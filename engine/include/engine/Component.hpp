@@ -1,6 +1,6 @@
 #pragma once
 #include <concepts>
-
+#include <memory>
 
 namespace engine::components {
     class Transform;
@@ -28,6 +28,17 @@ namespace engine {
 
         void set_has_started(bool has_started = true);
         [[nodiscard]] bool has_started() const;
+
+        static GameObject* Instantiate(const GameObject* prefab);
+        virtual std::unique_ptr<Component> clone() const = 0;
+    };
+    template<typename Derived>
+    class BaseComponent : public Component {
+        public:
+        std::unique_ptr<Component> clone() const override {
+            return std::make_unique<Derived>(static_cast<const Derived&>(*this));
+        }
+
     };
 }
 

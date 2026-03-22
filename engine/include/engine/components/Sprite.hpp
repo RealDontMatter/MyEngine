@@ -11,7 +11,7 @@ namespace engine {
 }
 
 namespace engine::components {
-    class Sprite : public Component {
+    class Sprite : public BaseComponent<Sprite> {
         std::shared_ptr<sf::Texture> texture_ = nullptr;
         float _density = 100.f;
     public:

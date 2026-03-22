@@ -92,6 +92,38 @@ void engine::GameObject::Update() const {
     }
 }
 
+engine::GameObject::GameObject(const GameObject &other) {
+    _tag = other._tag;
+    _name = other._name;
+    _parent = nullptr;
 
+    _children = std::vector<std::unique_ptr<GameObject>>(other._children.size());
+    for (int i = 0; i < other._children.size(); i++) {
+        _children[i] = std::make_unique<GameObject>(*other._children[i]);
+    }
 
+    _components = std::vector<std::unique_ptr<Component>>(other._components.size());
+    for (int i = 0; i < other._components.size(); i++) {
+        _components[i] = other._components[i]->clone(); //std::make_unique<Component>(*other._components[i]);
+        _components[i]->set_owner(this);
+    }
+}
 
+engine::GameObject & engine::GameObject::operator=(const GameObject &other) {
+    _tag = other._tag;
+    _name = other._name;
+    _parent = nullptr;
+
+    _children = std::vector<std::unique_ptr<GameObject>>(other._children.size());
+    for (int i = 0; i < other._children.size(); i++) {
+        _children[i] = std::make_unique<GameObject>(*other._children[i]);
+    }
+
+    _components = std::vector<std::unique_ptr<Component>>(other._components.size());
+    for (int i = 0; i < other._components.size(); i++) {
+        _components[i] = other._components[i]->clone(); //std::make_unique<Component>(*other._components[i]);
+        _components[i]->set_owner(this);
+    }
+
+    return *this;
+}

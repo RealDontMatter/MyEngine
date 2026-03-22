@@ -6,7 +6,7 @@ namespace engine {
 }
 
 namespace engine::components {
-    class Camera : public Component {
+    class Camera : public BaseComponent<Camera> {
         float size_ = 5;
     public:
         void setSize(float size);

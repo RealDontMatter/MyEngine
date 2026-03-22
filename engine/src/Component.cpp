@@ -2,6 +2,8 @@
 #include <engine/GameObject.hpp>
 #include <engine/components/Transform.hpp>
 
+#include "engine/Scene.hpp"
+#include "engine/SceneManager.hpp"
 
 engine::Component::Component() : _game_object(nullptr) { }
 
@@ -18,4 +20,11 @@ bool engine::Component::has_started() const {
 }
 void engine::Component::set_has_started(const bool has_started) {
     has_started_ = has_started;
+}
+
+engine::GameObject * engine::Component::Instantiate(const GameObject *prefab) {
+    Scene *active_scene = SceneManager::get_active_scene();
+    if (prefab == nullptr || active_scene == nullptr) return nullptr;
+    auto smrt = std::make_unique<GameObject>(*prefab);
+    return active_scene->add_object(std::move(smrt));
 }
