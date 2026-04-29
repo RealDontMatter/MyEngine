@@ -60,22 +60,22 @@ namespace engine {
 vector<unique_ptr<GameObject>> createGameObjects() {
     vector<unique_ptr<GameObject>> objects;
 
-    auto player = GameObject::Create("player");
+    auto player = make_unique<GameObject>("player");
     player->GetComponent<components::Transform>()
     ->set_data({0,0,0}, {0,0,0}, {1,1,1});
 
     player->add_component<components::Sprite>()->set_data("../assets/hero.png", 16.f);
     player->add_component<PlayerMovement>()->set_data(2.f);
 
-    enemy_prefab = GameObject::Create("enemy");
+    enemy_prefab = make_unique<GameObject>("enemy");
     enemy_prefab->add_component<components::Sprite>()->set_data("../assets/enemy.png", 16.f);
     enemy_prefab->add_component<EnemyLogic>()->set_data(player.get(), 1.f);
     enemy_prefab->GetComponent<components::Transform>()->set_data({-5,5,0}, {0,0,0}, {1,1,1});
 
-    auto spawner = GameObject::Create("spawner");
+    auto spawner = make_unique<GameObject>("spawner");
     spawner->add_component<EnemySpawner>()->set_data(5.f, enemy_prefab.get());
 
-    auto camera = GameObject::Create("camera");
+    auto camera = make_unique<GameObject>("camera");
     camera->add_component<components::Camera>()->set_data(25);
     camera->GetComponent<components::Transform>()->set_data({0,0,0}, {0,0,0}, {1,1,1});
 

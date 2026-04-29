@@ -6,7 +6,11 @@
 #include <engine/Component.hpp>
 #include <engine/components/Transform.hpp>
 
-engine::GameObject::GameObject(std::string name, std::string tag) : _name(std::move(name)), _tag(std::move(tag)) {}
+engine::GameObject::GameObject(std::string name, std::string tag) : _name(std::move(name)), _tag(std::move(tag)) {
+    auto trn = std::make_unique<components::Transform>();
+    trn->set_owner(this);
+    _components.push_back(std::move(trn));
+}
 
 std::unique_ptr<engine::GameObject> engine::GameObject::Create(std::string name, std::string tag) {
     const auto rawPtr = new GameObject(std::move(name), std::move(tag));

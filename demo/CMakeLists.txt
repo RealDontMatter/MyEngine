@@ -10,5 +10,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         sfml-system sfml-graphics sfml-window sfml-network sfml-audio
 )
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/assets DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS ${PROJECT_NAME} DESTINATION ./demo/bin)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/assets DESTINATION ./demo)

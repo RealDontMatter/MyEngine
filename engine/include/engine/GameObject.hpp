@@ -16,10 +16,10 @@ namespace engine {
         std::vector<std::unique_ptr<Component>> _components;
         std::string _name, _tag;
         GameObject* _parent = nullptr;
-        explicit GameObject(std::string name, std::string tag = "");
     public:
         static std::unique_ptr<GameObject> Create(std::string name, std::string tag = "");
 
+        explicit GameObject(std::string name, std::string tag = "");
         GameObject(const GameObject& other);
         GameObject& operator=(const GameObject& other);
 

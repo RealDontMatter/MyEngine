@@ -3,6 +3,7 @@
 
 # Generated files
 cmake-build-*/
+out/
 
 ### General OS and other files ###
 # macOS
