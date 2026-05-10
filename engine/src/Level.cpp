@@ -2,31 +2,31 @@
 #include <vector>
 #include <memory>
 
-#include <engine/Scene.hpp>
+#include <engine/Level.hpp>
 
 #include <engine/Component.hpp>
 #include <engine/GameObject.hpp>
 
-[[nodiscard]] std::vector<engine::GameObject*> engine::Scene::get_objects() const {
+[[nodiscard]] std::vector<engine::GameObject*> engine::Level::get_objects() const {
     std::vector<GameObject*> result;
     for (const auto& object : objects) {
         result.push_back(object.get());
     }
     return result;
 }
-engine::GameObject* engine::Scene::add_object(std::unique_ptr<GameObject> object) {
+engine::GameObject* engine::Level::add_object(std::unique_ptr<GameObject> object) {
     objectsToAdd.push_back(std::move(object));
     return objectsToAdd.back().get();
 }
 
-void engine::Scene::init() const {
+void engine::Level::init() const {
     for (const auto& object : objects) {
         for (const auto cmp : object->get_all_components()) {
             cmp->awake();
         }
     }
 }
-void engine::Scene::update() {
+void engine::Level::update() {
     for (int i = 0; i < objects.size(); i++) {
         auto &object = objects[i];
         object->Update();

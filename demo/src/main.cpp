@@ -19,7 +19,7 @@ namespace engine {
         int _screen_width = 800, _screen_height = 600;
         string _title;
         unique_ptr<RenderWindow> _wnd;
-        Scene* _active_scene;
+        Level* _active_level;
     public:
         Application(const int width, const int height, string title)
             : _screen_width(width)
@@ -27,12 +27,12 @@ namespace engine {
             , _title(std::move(title))
         {
             _wnd = make_unique<RenderWindow>(VideoMode({800, 600}), _title);
-            _active_scene = SceneManager::create_scene();
+            _active_level = LevelManager::create_level();
         }
 
         void run() {
             Time::Init();
-            _active_scene->init();
+            _active_level->init();
 
             while (_wnd->isOpen()) {
                 while (const optional event = _wnd->pollEvent()) {
@@ -41,16 +41,16 @@ namespace engine {
 
                 Time::Update();
 
-                _active_scene->update();
+                _active_level->update();
                 _wnd->clear();
-                RenderPipeline::draw(_active_scene, _wnd.get());
+                RenderPipeline::draw(_active_level, _wnd.get());
                 _wnd->display();
             }
         }
 
-        void add_objects_to_scene(std::vector<unique_ptr<GameObject>>& objects) const {
+        void add_objects_to_level(std::vector<unique_ptr<GameObject>>& objects) const {
             for (auto& object : objects)
-                _active_scene->add_object(std::move(object));
+                _active_level->add_object(std::move(object));
         }
 
 
@@ -92,10 +92,10 @@ int main() {
 
     auto* app = new Application(800, 600, "demo");
 
-    Scene* _active_scene = SceneManager::get_active_scene();
+    Level* _active_level = LevelManager::get_active_level();
     auto objs = createGameObjects();
     for (auto& obj : objs)
-        _active_scene->add_object(std::move(obj));
+        _active_level->add_object(std::move(obj));
     app->run();
 
     delete app;

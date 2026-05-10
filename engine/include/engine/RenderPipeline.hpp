@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 namespace engine {
-    class Scene;
+    class Level;
     struct RenderPipeline {
-        static void draw(const Scene* scene, sf::RenderWindow* wnd);
+        static void draw(const Level* level, sf::RenderWindow* wnd);
     };
 }

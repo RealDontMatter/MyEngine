@@ -2,8 +2,8 @@
 #include <engine/GameObject.hpp>
 #include <engine/components/Transform.hpp>
 
-#include "engine/Scene.hpp"
-#include "engine/SceneManager.hpp"
+#include "engine/Level.hpp"
+#include "engine/LevelManager.hpp"
 
 engine::Component::Component() : _game_object(nullptr) { }
 
@@ -23,8 +23,8 @@ void engine::Component::set_has_started(const bool has_started) {
 }
 
 engine::GameObject * engine::Component::Instantiate(const GameObject *prefab) {
-    Scene *active_scene = SceneManager::get_active_scene();
-    if (prefab == nullptr || active_scene == nullptr) return nullptr;
+    Level *active_level = LevelManager::get_active_level();
+    if (prefab == nullptr || active_level == nullptr) return nullptr;
     auto smrt = std::make_unique<GameObject>(*prefab);
-    return active_scene->add_object(std::move(smrt));
+    return active_level->add_object(std::move(smrt));
 }

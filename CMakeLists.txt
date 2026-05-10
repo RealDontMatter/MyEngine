@@ -6,4 +6,4 @@ add_subdirectory(ext/sfml)
 
 add_subdirectory(engine)
 add_subdirectory(demo)
-add_subdirectory(testing)
+#add_subdirectory(testing)

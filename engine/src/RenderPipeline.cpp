@@ -1,18 +1,18 @@
 #include <engine/RenderPipeline.hpp>
 
 #include "engine/GameObject.hpp"
-#include "engine/Scene.hpp"
+#include "engine/Level.hpp"
 #include "engine/components/Camera.hpp"
 #include "engine/components/Sprite.hpp"
 #include "engine/components/Transform.hpp"
 
 
-void engine::RenderPipeline::draw(const Scene* scene, sf::RenderWindow* wnd) {
+void engine::RenderPipeline::draw(const Level* level, sf::RenderWindow* wnd) {
     GameObject* cam_obj = nullptr;
     components::Camera* cam_comp = nullptr;
     components::Transform* cam_trn = nullptr;
 
-    for (auto object: scene->get_objects()) {
+    for (auto object: level->get_objects()) {
         if (object->GetComponent<components::Camera>() != nullptr) {
             cam_obj = object;
             cam_comp = object->GetComponent<components::Camera>();
@@ -34,7 +34,7 @@ void engine::RenderPipeline::draw(const Scene* scene, sf::RenderWindow* wnd) {
         cs = cam_pos - Vector3(cam_width / 2, cam_height / 2, 0),
         ce = cam_pos + Vector3(cam_width / 2, cam_height / 2, 0);
 
-    for (const auto object : scene->get_objects()) {
+    for (const auto object : level->get_objects()) {
         auto* sprite_component = object->GetComponent<components::Sprite>();
         auto* transform_component = object->GetComponent<components::Transform>();
         if (!sprite_component || !transform_component) continue;

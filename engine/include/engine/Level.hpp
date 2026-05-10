@@ -5,7 +5,7 @@
 
 namespace engine {
     class GameObject;
-    class Scene {
+    class Level {
         std::vector<std::unique_ptr<GameObject>> objects;
         std::vector<std::unique_ptr<GameObject>> objectsToAdd;
 
