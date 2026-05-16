@@ -1,0 +1,25 @@
+{
+  "version": 5,
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Clang with Ninja",
+      "description": "Default build using Clang and Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default",
+      "displayName": "Build with default configuration"
+    }
+  ]
+}
